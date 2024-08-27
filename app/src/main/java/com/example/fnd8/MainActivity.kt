@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
 
             Fnd8Theme {
                 val nav = rememberNavController()
-                    NavHost(navController = nav, startDestination = "splash", builder = {
+                    NavHost(navController = nav, startDestination = "login", builder = {
                             composable("login"){
                                 Login(nav = nav, )
                             }
