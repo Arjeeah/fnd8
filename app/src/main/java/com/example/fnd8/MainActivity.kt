@@ -8,39 +8,33 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.compose.NavHost
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.composable
+import com.example.fnd8.pages.Login
+import com.example.fnd8.pages.SplashScreen
 import com.example.fnd8.ui.theme.Fnd8Theme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+
             Fnd8Theme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
+                val nav = rememberNavController()
+                    NavHost(navController = nav, startDestination = "splash", builder = {
+                            composable("login"){
+                                Login(nav = nav, )
+                            }
+                            composable("splash"){
+                                SplashScreen({})
+                            }
+
+                    })
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    Fnd8Theme {
-        Greeting("Android")
-    }
-}
