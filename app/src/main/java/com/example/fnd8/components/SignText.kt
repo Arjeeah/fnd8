@@ -12,11 +12,12 @@ import com.example.fnd8.R
 
 @Composable
 fun SignText(){
-    Text(text = "Sign In", style = TextStyle(
+    Text(
+        text = "Sign In", style = TextStyle(
         fontSize = 50.sp,
         color = Color.White,
         fontFamily =  FontFamily(Font(R.font.loginfont)),
         fontWeight = FontWeight.Bold
-    )
+         )
     )
 }
