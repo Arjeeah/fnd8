@@ -11,12 +11,19 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -28,6 +35,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
@@ -46,12 +54,20 @@ fun Login(
         nav:NavController,
         UserViewModel:UserViewModel = UserViewModel(),
         ){
-     val gradient = Brush.verticalGradient(
+    var phone = rememberSaveable {
+        mutableStateOf("")
+    }
+    var password = rememberSaveable {
+        mutableStateOf("")
+    }
+
+    val gradient = Brush.verticalGradient(
         colors = listOf(
             Color(0xFF234F1E), // Dark green
             Color(0xFF387C3B)  // Lighter green
         )
     )
+
         Scaffold(
             Modifier
         ) {innerPadding ->
@@ -83,19 +99,31 @@ fun Login(
                             Modifier
                                 .fillMaxSize(),
                             horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.SpaceEvenly
+                            verticalArrangement = Arrangement.SpaceAround
                         ) {
                             OutlinedTextField(
-                                value = "", onValueChange ={} ,
+                                value = phone.value, onValueChange ={phone.value=it} ,
                                 shape = RoundedCornerShape(24.dp),
                                 label = { Text(text = "Phone")}
+
                             )
                             OutlinedTextField(
-                                value = "", onValueChange ={} ,
+                                value = password.value, onValueChange ={password.value=it} ,
                                 shape = RoundedCornerShape(24.dp),
-
+                                visualTransformation = PasswordVisualTransformation(),
                                 label = { Text(text = "Password")},
                             )
+                            OutlinedButton(
+                                onClick = { /*TODO*/ },
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = Color(0xFF387C3B),
+                                    contentColor = Color.White,
+                                    ),
+                                modifier = Modifier.width(120.dp)
+                            )
+                            {
+                                Text(text = "Log In")
+                            }
                         }
                     }
                     Text(
@@ -109,11 +137,7 @@ fun Login(
                         )
                     )
 
-
-
-
-                }
             }
-
         }
     }
+}
