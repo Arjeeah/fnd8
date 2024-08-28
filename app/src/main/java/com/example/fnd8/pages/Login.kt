@@ -16,11 +16,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -43,11 +46,13 @@ import androidx.navigation.NavController
 import com.example.fnd8.R
 import com.example.fnd8.components.SignText
 import com.example.fnd8.components.logoImage
+import com.example.fnd8.components.logoImageWhite
 import com.example.fnd8.components.speacer32
 import com.example.fnd8.components.speacerSmall
 import com.example.fnd8.viewmodel.UserViewModel
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("SuspiciousIndentation")
 @Composable
 fun Login(
@@ -75,7 +80,7 @@ fun Login(
             Box (
                 Modifier
                     .fillMaxSize()
-                    .background(brush = gradient)
+                    .background(Color.White)
             ){
 
                 Column(
@@ -84,40 +89,58 @@ fun Login(
                         .padding(top = 20.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    logoImage()
+                    logoImageWhite()
                     speacer32()
                     SignText()
                     speacer32()
                     Box(
                         Modifier
                             .fillMaxWidth()
-                            .height(300.dp)
+                            .height(350.dp)
                             .padding(bottom = 15.dp, start = 25.dp, end = 25.dp)
-                            .background(Color.White, shape = RoundedCornerShape(24.dp))
+                            .background(Color(0xFF234F1E), shape = RoundedCornerShape(24.dp))
                     ){
                         Column(
                             Modifier
                                 .fillMaxSize(),
                             horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.SpaceAround
+                            verticalArrangement = Arrangement.SpaceAround,
                         ) {
                             OutlinedTextField(
+                                modifier = Modifier.padding(10.dp),
                                 value = phone.value, onValueChange ={phone.value=it} ,
                                 shape = RoundedCornerShape(24.dp),
-                                label = { Text(text = "Phone")}
+                                colors = TextFieldDefaults.outlinedTextFieldColors(
+                                    focusedBorderColor = Color.White,        // Outline color when focused
+                                    unfocusedBorderColor = Color.White,      // Outline color when not focused
+                                    containerColor = Color.White,      // Field (background) color
+                                    cursorColor = Color(0xFF387C3B),                // Cursor color
+                                    focusedLabelColor = Color.White,     // Label color when focused
+                                    unfocusedLabelColor = Color.Gray    // Label color when not focused
+                                ),
+
+                                label = { Text(text = "Phone")},
 
                             )
                             OutlinedTextField(
                                 value = password.value, onValueChange ={password.value=it} ,
                                 shape = RoundedCornerShape(24.dp),
                                 visualTransformation = PasswordVisualTransformation(),
+                                colors = TextFieldDefaults.outlinedTextFieldColors(
+                                    focusedBorderColor = Color.White,        // Outline color when focused
+                                    unfocusedBorderColor = Color.White,      // Outline color when not focused
+                                    containerColor = Color.White,      // Field (background) color
+                                    cursorColor = Color(0xFF387C3B),                // Cursor color
+                                    focusedLabelColor = Color.White,     // Label color when focused
+                                    unfocusedLabelColor = Color.Gray    // Label color when not focused
+                                ),
                                 label = { Text(text = "Password")},
                             )
                             OutlinedButton(
                                 onClick = { /*TODO*/ },
                                 colors = ButtonDefaults.buttonColors(
-                                    containerColor = Color(0xFF387C3B),
-                                    contentColor = Color.White,
+                                    containerColor = Color.White,
+                                    contentColor = Color(0xff173844),
                                     ),
                                 modifier = Modifier.width(120.dp)
                             )

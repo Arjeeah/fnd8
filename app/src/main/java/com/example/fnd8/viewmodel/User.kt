@@ -21,6 +21,6 @@ class UserViewModel:ViewModel(){
         return users.find{ it.userPhone==phone && it.userPassword==password }
     }
     fun getItems(user:User)=user.userCart
-    fun addItems(user:User,item:CartItem)=user.userCart.add(item)
-    fun removeItems(user:User,item:CartItem)=user.userCart.remove(item)
+    fun addItems(user:User,item:CartItem)=user.userCart?.add(item)
+    fun removeItems(user:User,item:CartItem)=user.userCart?.remove(item)
 }

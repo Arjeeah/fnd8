@@ -11,13 +11,13 @@ import androidx.compose.ui.unit.sp
 import com.example.fnd8.R
 
 @Composable
-fun SignText(){
+fun SignUp(){
     Text(
-        text = "Sign In", style = TextStyle(
-        fontSize = 50.sp,
-        color =Color(0xFF234F1E),
-        fontFamily =  FontFamily(Font(R.font.loginfont)),
-        fontWeight = FontWeight.Bold
-         )
+        text = "Register", style = TextStyle(
+            fontSize = 35.sp,
+            color = Color(0xFF234F1E),
+            fontFamily =  FontFamily(Font(R.font.loginfont)),
+            fontWeight = FontWeight.Bold
+        )
     )
 }
