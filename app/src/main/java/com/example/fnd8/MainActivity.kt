@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Fnd8Theme {
-                  val nav = rememberNavController()
+                 val nav = rememberNavController()
                     NavHost(navController = nav, startDestination = "main", builder = {
                             composable("login"){
                                 Login(nav = nav, )

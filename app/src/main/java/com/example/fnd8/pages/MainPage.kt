@@ -1,5 +1,6 @@
 package com.example.fnd8.pages
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -61,25 +62,28 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.fnd8.DrawerNav
 import com.example.fnd8.R
+import com.example.fnd8.components.ProductList
+import com.example.fnd8.components.SimpleGrid
 import com.example.fnd8.components.logoImage
 import com.example.fnd8.components.logoImageWhite
 import com.example.fnd8.components.speacerSmall
 import com.example.fnd8.model.User
 import kotlinx.coroutines.launch
 
+@SuppressLint("UnrememberedMutableState")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainPage(loggedInUser: User,nav:NavController){
     val itemsNavigation = listOf(
-        DrawerNav(
-            text = "Profile",
-            selectedIcon = Icons.Filled.Person,
-            unselectedIcon = Icons.Outlined.Person,
-        ),
+
         DrawerNav(
             text = "Home",
             selectedIcon = Icons.Filled.Home,
             unselectedIcon = Icons.Outlined.Home,
+        ),  DrawerNav(
+            text = "Profile",
+            selectedIcon = Icons.Filled.Person,
+            unselectedIcon = Icons.Outlined.Person,
         ),
         DrawerNav(
             text = "About Fnd8n",
@@ -105,6 +109,7 @@ fun MainPage(loggedInUser: User,nav:NavController){
     var selectedNavigationItemIndex by rememberSaveable {
         mutableStateOf(0)
     }
+    var list = mutableStateOf( ProductList().products)
     ModalNavigationDrawer(
         drawerContent = {
             ModalDrawerSheet {
@@ -188,34 +193,40 @@ fun MainPage(loggedInUser: User,nav:NavController){
                             .fillMaxWidth()
                             .height(50.dp)
                             .horizontalScroll(enabled = true, state = scrollState)
+
                     ) {
                         Text(
-                            text = " vegetables ",
+                            text = " All ",
                             style = TextStyle(
                                 fontSize = 21.sp,
                                 color = Color(0xff173844),
                                 fontFamily = FontFamily(Font(R.font.category_name)),
                             ),
-                            modifier = Modifier.clickable {  }
+                            modifier = Modifier.clickable {     list.value = ProductList().products
+                            }
                         )
                         Text(
-                            text = " fruit ",
+                            text = "vegetables ",
                             style = TextStyle(
                                 fontSize = 21.sp,
                                 color = Color(0xff173844),
                                 fontFamily = FontFamily(Font(R.font.category_name)),
                             ),
-                            modifier = Modifier.clickable {  }
+                            modifier = Modifier.clickable { list.value=
+                                ProductList().products.filter { it.type =="Vegetables"}.toMutableList()
+                            }
                         )
                         Text(
-                            text = " Leaves  ",
+                            text = "Fruit ",
                             style = TextStyle(
                                 fontSize = 21.sp,
                                 color = Color(0xff173844),
                                 fontFamily = FontFamily(Font(R.font.category_name)),
                             ),
-                            modifier = Modifier.clickable {  }
+                            modifier = Modifier.clickable {  list.value=
+                                ProductList().products.filter { it.type =="Fruit"}.toMutableList() }
                         )
+
                         Text(
                             text = " Honey ",
                             style = TextStyle(
@@ -223,16 +234,8 @@ fun MainPage(loggedInUser: User,nav:NavController){
                                 color = Color(0xff173844),
                                 fontFamily = FontFamily(Font(R.font.category_name)),
                             ),
-                            modifier = Modifier.clickable {  }
-                        )
-                        Text(
-                            text = " Roots ",
-                            style = TextStyle(
-                                fontSize = 21.sp,
-                                color = Color(0xff173844),
-                                fontFamily = FontFamily(Font(R.font.category_name)),
-                            ),
-                            modifier = Modifier.clickable {  }
+                            modifier = Modifier.clickable { list.value=
+                                ProductList().products.filter { it.type =="Honey"}.toMutableList() }
                         )
                         Text(
                             text = " Flowers ",
@@ -241,10 +244,12 @@ fun MainPage(loggedInUser: User,nav:NavController){
                                 color = Color(0xff173844),
                                 fontFamily = FontFamily(Font(R.font.category_name)),
                             ),
-                            modifier = Modifier.clickable {  }
+                            modifier = Modifier.clickable { list.value=
+                                ProductList().products.filter { it.type =="Flowers"}.toMutableList()  }
                         )
                     }
                 }
+                SimpleGrid(list = list.value)
 
             }
 
