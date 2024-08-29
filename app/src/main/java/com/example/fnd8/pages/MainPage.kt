@@ -75,7 +75,9 @@ import kotlinx.coroutines.launch
 @SuppressLint("UnrememberedMutableState")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainPage(loggedInUser: User,nav:NavController){
+fun MainPage(
+    loggedInUser: Int
+    ,nav:NavController){
     val itemsNavigation = listOf(
 
         DrawerNav(
@@ -254,7 +256,9 @@ fun MainPage(loggedInUser: User,nav:NavController){
                         )
                     }
                 }
-                SimpleGrid(list = list.value,nav)
+                SimpleGrid(
+                    list = list.value,nav
+                )
             }
         }
     }

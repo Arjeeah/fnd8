@@ -44,6 +44,7 @@ import com.example.fnd8.components.ProductCard
 import com.example.fnd8.logedinuser
 import com.example.fnd8.model.CartItem
 import com.example.fnd8.model.Product
+import com.example.fnd8.model.User
 import com.example.fnd8.ui.theme.Fnd8Theme
 import com.example.fnd8.viewmodel.UserViewModel
 
@@ -53,6 +54,8 @@ import com.example.fnd8.viewmodel.UserViewModel
 fun DescriptionPage(
     nav:NavController,
     product: Product,
+    logedInUser: Int,
+    UserViewModel:UserViewModel,
 ){
     Scaffold(
         topBar ={ TopAppBar(
@@ -67,9 +70,9 @@ fun DescriptionPage(
                     Text(text = "Product")
                 }
             },
-
-            )}
-    ) {p ->
+        )
+    }
+) {p ->
         Column(
             Modifier
                 .fillMaxSize()
@@ -80,10 +83,11 @@ fun DescriptionPage(
         ) {
             ProductDescription(
                 product,
-                nav
+                nav,
             )
             Button(
-                onClick = { logedinuser.user.userCart?.add(
+                onClick = {
+                    UserViewModel.users[logedInUser].userCart?.add(
                     CartItem(
                         product,
                         2

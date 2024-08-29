@@ -45,13 +45,15 @@ import com.example.fnd8.model.CartItem
 import com.example.fnd8.model.Product
 import com.example.fnd8.model.User
 import com.example.fnd8.ui.theme.Fnd8Theme
+import com.example.fnd8.viewmodel.UserViewModel
 import kotlin.time.times
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CartPage(
     nav: NavController,
-    loggedInUser : User
+    loggedInUser : Int,
+    UserViewModel: UserViewModel,
 ) {
     Scaffold(
         topBar = {
@@ -76,7 +78,7 @@ fun CartPage(
                 .fillMaxSize()
                 .padding(p)
         ) {
-            loggedInUser.userCart?.forEachIndexed(){ index ,cartItem ->
+            UserViewModel.users[loggedInUser].userCart?.forEachIndexed(){ index ,cartItem ->
                 CartElement(
                     cartItem,
                     add = {

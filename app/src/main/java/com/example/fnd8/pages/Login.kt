@@ -58,7 +58,7 @@ import com.example.fnd8.viewmodel.UserViewModel
 @Composable
 fun Login(
         nav:NavController,
-        UserViewModel:UserViewModel = UserViewModel(),
+        UserViewModel:UserViewModel ,
         ){
     var phone = rememberSaveable {
         mutableStateOf("")
@@ -140,8 +140,10 @@ fun Login(
                             OutlinedButton(
                                 onClick = {
                                           var user = UserViewModel.login(phone = phone.value,password=password.value)
-                                        if (user !=null){
-                                            logedinuser.user=user
+                                        if (user !=-1){
+                                            if (user != null) {
+                                                logedinuser.user=user
+                                            }
                                             nav.navigate("main")
                                         }
                                           },
@@ -162,7 +164,7 @@ fun Login(
                                 nav.navigate("register")
                         },
                         style = TextStyle(
-                            fontSize = 50.sp,
+                            fontSize = 24.sp,
                             color = Color(0xFF234F1E),
                             fontFamily =  FontFamily(Font(R.font.loginfont)),
                             fontWeight = FontWeight.Bold

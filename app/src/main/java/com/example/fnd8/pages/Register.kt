@@ -58,7 +58,7 @@ import com.example.fnd8.viewmodel.UserViewModel
 @Composable
 fun Register(
     nav:NavController,
-    UserViewModel:UserViewModel = UserViewModel(),
+    UserViewModel:UserViewModel ,
 ){
     var name = rememberSaveable {
         mutableStateOf("")

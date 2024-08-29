@@ -44,30 +44,32 @@ class MainActivity : ComponentActivity() {
                             Register(nav,theusersViewModel.userViewModel)
                         }
                         composable("main",){
-                            MainPage(loggedInUser = logedinuser.user
+                            MainPage(
+                                loggedInUser = logedinuser.user
                              , nav =nav )
                         }
                         composable("cart"){
-                            CartPage(nav , logedinuser.user)
+                            CartPage(nav , logedinuser.user,theusersViewModel.userViewModel)
                         }
                         composable("product"){
                             DescriptionPage(
                                 product = theProduct.product,
-                                nav=nav
+                                nav=nav,
+                                logedInUser = logedinuser.user,
+                              UserViewModel =   theusersViewModel.userViewModel
                             )
                         }
                         composable("profile"){
-                            Profile(nav ,theusersViewModel.userViewModel)
-
-
+                            Profile(nav ,theusersViewModel.userViewModel,logedinuser.user)
                         }
-                })
+                    }
+                )
             }
         }
     }
 }
 object logedinuser{
-    lateinit var user :User
+     var user :Int = -1
 }
 object theusersViewModel{
     var userViewModel =UserViewModel()

@@ -35,7 +35,8 @@ import com.example.fnd8.viewmodel.UserViewModel
 @Composable
 fun Profile(
     nav:NavController,
-    viewModel : UserViewModel = UserViewModel(),
+    viewModel : UserViewModel,
+    LogedInUser:Int
 ){
     Scaffold(
         topBar = {TopAppBar(title = {
@@ -65,7 +66,7 @@ fun Profile(
             Row(modifier = Modifier.fillMaxWidth()) {
                 Box(modifier = Modifier.weight(1F)) {
                     InformationCard(
-                        title = logedinuser.user.userName,
+                        title = viewModel.users[LogedInUser].userName,
                         information = "",
                         onTextChange = {
 
@@ -75,7 +76,7 @@ fun Profile(
                 SpaceHorizontal16()
                 Box(modifier = Modifier.weight(1F)) {
                     InformationCard(
-                        title = logedinuser.user.userName,
+                        title = viewModel.users[LogedInUser].userName,
                         information = "user[0].secondName",
                         onTextChange = {
 
@@ -91,7 +92,7 @@ fun Profile(
             )
             InformationCard(
                 title = "Phone",
-                information = user.userPhone,
+                information = viewModel.users[LogedInUser].userPhone,
                 onTextChange = {
                 }
             )

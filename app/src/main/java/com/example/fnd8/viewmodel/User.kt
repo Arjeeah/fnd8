@@ -6,7 +6,7 @@ import com.example.fnd8.model.CartItem
 import com.example.fnd8.model.User
 
 class UserViewModel:ViewModel(){
-    private var users = mutableStateListOf<User>(
+     var users = mutableStateListOf<User>(
         User(userName = "ali",
             userPassword = "123",
             userPhone = "123",
@@ -16,8 +16,9 @@ class UserViewModel:ViewModel(){
     fun regestrition(user:User){
         users.add(user)
     }
-    fun login(phone:String,password:String):User?{
-        return users.find{ it.userPhone==phone && it.userPassword==password }
+    fun login(phone:String,password:String):Int?{
+          var user =users.find{ it.userPhone==phone && it.userPassword==password }
+        return users.indexOf(user)
     }
     fun getItems(user:User)=user.userCart
     fun addItems(user:User,item:CartItem)=user.userCart?.add(item)

@@ -29,7 +29,7 @@ fun DefaultButton(
             .fillMaxWidth()
             .height(54.dp),
         shape = RoundedCornerShape(16.dp),
-        colors = ButtonDefaults.buttonColors(containerColor = Red),
+        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF234F1E)),
         elevation = ButtonDefaults.buttonElevation(0.dp)
     ) {
         Text(
