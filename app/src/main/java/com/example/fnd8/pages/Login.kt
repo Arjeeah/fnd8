@@ -49,6 +49,7 @@ import com.example.fnd8.components.logoImage
 import com.example.fnd8.components.logoImageWhite
 import com.example.fnd8.components.speacer32
 import com.example.fnd8.components.speacerSmall
+import com.example.fnd8.logedinuser
 import com.example.fnd8.viewmodel.UserViewModel
 
 
@@ -90,9 +91,9 @@ fun Login(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     logoImageWhite()
-                    speacer32()
+                    //speacer32()
                     SignText()
-                    speacer32()
+                    //speacer32()
                     Box(
                         Modifier
                             .fillMaxWidth()
@@ -137,7 +138,13 @@ fun Login(
                                 label = { Text(text = "Password")},
                             )
                             OutlinedButton(
-                                onClick = { /*TODO*/ },
+                                onClick = {
+                                          var user = UserViewModel.login(phone = phone.value,password=password.value)
+                                        if (user !=null){
+                                            logedinuser.user=user
+                                            nav.navigate("main")
+                                        }
+                                          },
                                 colors = ButtonDefaults.buttonColors(
                                     containerColor = Color.White,
                                     contentColor = Color(0xff173844),
@@ -151,15 +158,16 @@ fun Login(
                     }
                     Text(
                         text = "Create new  account ",
-                        Modifier.clickable { },
+                        Modifier.clickable {
+                                nav.navigate("register")
+                        },
                         style = TextStyle(
-                            fontSize = 20.sp,
-                            color = Color.White,
+                            fontSize = 50.sp,
+                            color = Color(0xFF234F1E),
                             fontFamily =  FontFamily(Font(R.font.loginfont)),
                             fontWeight = FontWeight.Bold
-                        )
                     )
-
+                )
             }
         }
     }

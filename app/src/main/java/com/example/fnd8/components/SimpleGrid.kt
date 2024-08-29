@@ -26,6 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.fnd8.model.Product
 import com.example.fnd8.ui.theme.Fnd8Theme
 import com.example.fnd8.R
@@ -33,7 +34,8 @@ import com.example.fnd8.R
 
 @Composable
 fun SimpleGrid(
-     list: MutableList<Product>
+     list: MutableList<Product>,
+     nav: NavController
 ) {
 
     var items=list
@@ -42,19 +44,8 @@ fun SimpleGrid(
         modifier = Modifier.padding(16.dp)
     ) {
         items(items) { item ->
-            ProductCard(title = item.title, price = item.price, description =item.description , imageRes = item.image, type = item.type)
-
+            ProductCard(title = item.title, price = item.price, description =item.description , imageRes = item.image, type = item.type,nav )
         }
-    }
-}
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    Fnd8Theme {
-
-//        SimpleGrid()
-
-
     }
 }
 @Composable
@@ -63,13 +54,22 @@ fun ProductCard(
     price: Double,
     description: String,
     imageRes: Int,
-
-    type:String
+    type:String,
+    nav:NavController
 )
 
 {
     ElevatedCard(
-        modifier = Modifier.clickable {  }
+        modifier = Modifier.clickable {
+            theProduct.product=Product(
+                title=title,
+                price = price,
+                description = description,
+                image = imageRes,
+                type = type,
+            )
+            nav.navigate("product")
+        }
             .padding(top=20.dp,end = 28.dp, start = 10.dp)
         ,
         shape = RoundedCornerShape(16.dp),
@@ -106,4 +106,7 @@ fun ProductCard(
             Spacer(modifier = Modifier.height(8.dp))
         }
     }
+}
+object  theProduct{
+    lateinit var product : Product
 }

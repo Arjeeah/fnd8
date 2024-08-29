@@ -17,12 +17,14 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.outlined.ExitToApp
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Info
@@ -80,30 +82,32 @@ fun MainPage(loggedInUser: User,nav:NavController){
             text = "Home",
             selectedIcon = Icons.Filled.Home,
             unselectedIcon = Icons.Outlined.Home,
+            route = "main"
         ),  DrawerNav(
             text = "Profile",
             selectedIcon = Icons.Filled.Person,
             unselectedIcon = Icons.Outlined.Person,
+            route = "profile"
         ),
         DrawerNav(
             text = "About Fnd8n",
             selectedIcon = Icons.Filled.Info,
             unselectedIcon = Icons.Outlined.Info,
+            route = "about"
         ),
         DrawerNav(
             text = "Settings",
             selectedIcon = Icons.Filled.Settings,
             unselectedIcon = Icons.Outlined.Settings,
+            route = "settings"
         ),
         DrawerNav(
             text = "Log Out",
             selectedIcon = Icons.Filled.ExitToApp,
             unselectedIcon = Icons.Outlined.ExitToApp,
+            route = "login"
         ),
     )
-
-
-
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
     var selectedNavigationItemIndex by rememberSaveable {
@@ -121,13 +125,9 @@ fun MainPage(loggedInUser: User,nav:NavController){
                         },
                         selected = index == selectedNavigationItemIndex,
                         onClick = {
-                            selectedNavigationItemIndex = index
+                            nav.navigate(item.route)
                             scope.launch {
                                 drawerState.close()
-                            }
-                            if(selectedNavigationItemIndex == 2){
-
-                                nav.navigate("info")
                             }
                         },
                         icon = {
@@ -156,9 +156,14 @@ fun MainPage(loggedInUser: User,nav:NavController){
                             Modifier
                                 .size(400.dp)
                                 .padding(end = 40.dp))
+                        IconButton(onClick = {
+                            nav.navigate("cart")
+                        }) {
+                            Icon(Icons.Filled.ShoppingCart, contentDescription ="" )
+                        }
+
                     }
                 },
-
                 navigationIcon = {
                     IconButton(onClick = {
                         scope.launch {
@@ -174,7 +179,7 @@ fun MainPage(loggedInUser: User,nav:NavController){
                 }
 
             )
-            }
+        }
         ){innerPadding ->
             val scrollState = rememberScrollState()
             Column(
@@ -249,12 +254,9 @@ fun MainPage(loggedInUser: User,nav:NavController){
                         )
                     }
                 }
-                SimpleGrid(list = list.value)
-
+                SimpleGrid(list = list.value,nav)
             }
-
         }
     }
-
 }
 

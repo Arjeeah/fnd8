@@ -49,6 +49,7 @@ import com.example.fnd8.components.logoImage
 import com.example.fnd8.components.logoImageWhite
 import com.example.fnd8.components.speacer32
 import com.example.fnd8.components.speacerSmall
+import com.example.fnd8.model.User
 import com.example.fnd8.viewmodel.UserViewModel
 
 
@@ -68,14 +69,12 @@ fun Register(
     var password = rememberSaveable {
         mutableStateOf("")
     }
-
     val gradient = Brush.verticalGradient(
         colors = listOf(
             Color(0xFF234F1E), // Dark green
             Color(0xFF387C3B)  // Lighter green
         )
     )
-
     Scaffold(
         Modifier
     ) {innerPadding ->
@@ -85,7 +84,6 @@ fun Register(
                 .fillMaxSize()
                 .background(Color.White)
         ){
-
             Column(
                 Modifier
                     .fillMaxSize()
@@ -151,7 +149,16 @@ fun Register(
                             label = { Text(text = "Password")},
                         )
                         OutlinedButton(
-                            onClick = { /*TODO*/ },
+                            onClick = {
+                                var newuser =User(
+                                    userPhone = phone.value,
+                                    userName = name.value,
+                                    userPassword = password.value,
+                                    userCart = null
+                                )
+                                UserViewModel.regestrition(newuser)
+                                nav.popBackStack()
+                            },
                             colors = ButtonDefaults.buttonColors(
                                 containerColor = Color.White,
                                 contentColor = Color(0xff173844),
@@ -161,7 +168,7 @@ fun Register(
                         {
                             Text(text = "Create Account", style = TextStyle(
                                 fontWeight = FontWeight.Bold
-                            )
+                                )
                             )
                         }
                     }

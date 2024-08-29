@@ -13,7 +13,6 @@ class UserViewModel:ViewModel(){
             userCart = mutableStateListOf<CartItem>(),
             ),
     )
-
     fun regestrition(user:User){
         users.add(user)
     }

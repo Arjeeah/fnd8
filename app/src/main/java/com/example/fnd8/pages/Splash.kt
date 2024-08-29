@@ -21,18 +21,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.fnd8.R
 import com.example.fnd8.components.logoImage
 import kotlinx.coroutines.delay
 
 @Composable
-fun SplashScreen(onTimeout: () -> Unit) {
+fun SplashScreen(nav:NavController) {
     var isTimeoutReached by remember { mutableStateOf(false) }
 
     LaunchedEffect(key1 = true) {
         delay(3000) // Delay for 3 seconds
         isTimeoutReached = true
-        onTimeout()
+        nav.popBackStack()
+        nav.navigate("login")
     }
 
     if (!isTimeoutReached) {
